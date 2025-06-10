@@ -1,6 +1,40 @@
 'use client';
 
 import styled from '@emotion/styled';
+import {services} from "@/services";
+
+export default function ServicesSection() {
+    return (
+        <ServicesContainer>
+            <ContentWrapper>
+                <SectionTitle>What we can help with</SectionTitle>
+
+                <ServicesGrid>
+                    {services.map((service, index) => {
+                        const isReverse = index % 2 !== 0;
+                        const serviceNumber = String(index + 1).padStart(2, '0');
+
+                        return (
+                            <ServiceCard key={service.id} reverse={isReverse}>
+                                <ServiceImage backgroundImage={service.image} />
+                                <ServiceContentWrapper>
+                                    <BackgroundNumber reverse={isReverse}>
+                                        {serviceNumber}
+                                    </BackgroundNumber>
+                                    <ServiceContent reverse={isReverse}>
+                                        <ServiceCategory>{service.category}</ServiceCategory>
+                                        <ServiceTitle>{service.title}</ServiceTitle>
+                                        <ServiceDescription>{service.description}</ServiceDescription>
+                                    </ServiceContent>
+                                </ServiceContentWrapper>
+                            </ServiceCard>
+                        );
+                    })}
+                </ServicesGrid>
+            </ContentWrapper>
+        </ServicesContainer>
+    );
+}
 
 const ServicesContainer = styled.section`
   padding: 6rem 0;
@@ -17,9 +51,8 @@ const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 500;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
   color: #2c5530;
-  font-family: 'TT Norms', Georgia, serif;
 `;
 
 const ServicesGrid = styled.div`
@@ -36,7 +69,7 @@ const ServiceCard = styled.div<{ reverse?: boolean }>`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  flex-direction: ${props => props.reverse ? 'row-reverse' : 'row'};
+  flex-direction: ${({ reverse }) => reverse ? 'row-reverse' : 'row'};
   position: relative;
   max-width: 800px;
   margin: 0 auto;
@@ -45,126 +78,100 @@ const ServiceCard = styled.div<{ reverse?: boolean }>`
     flex-direction: column;
     text-align: center;
     align-items: center;
+    gap: 2rem;
   }
 `;
 
-const BackgroundNumber = styled.div<{ number: string }>`
-  position: absolute;
-  font-size: 12rem;
-  font-weight: 700;
-  color: rgba(168, 197, 160, 0.15);
-  background: #F3F7F4;
-  z-index: 0;
-  top: -2rem;
-  left: ${props => props.number === '01' ? '19rem' : 'auto'};
-  right: ${props => props.number === '02' ? '-2rem' : 'auto'};
-  user-select: none;
-  pointer-events: none;
-  font-family: 'TT Norms', Georgia, serif;
-  font-weight: 400;
-  font-size: 450px;
-  line-height: 450px;
-  letter-spacing: -3%;
-
+const ServiceContentWrapper = styled.div`
+  position: relative;
+  flex: 1;
 
   @media (max-width: 768px) {
-    font-size: 8rem;
-    position: relative;
-    left: auto;
-    right: auto;
-    top: 0;
-    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 400px;
   }
 `;
 
-const ServiceImage = styled.div<{ imageType?: 'hairloss' | 'ed' }>`
-  width: 200px;
-  height: 200px;
-  background-image: ${({ imageType }) => {
-    if (imageType === 'hairloss') {
-      return `url('/images/hair-loss-back-head.png')`;
-    } else if (imageType === 'ed') {
-      return `url('/images/older-man.png')`;
-    }
-    return 'none';
-  }};
+const BackgroundNumber = styled.div<{ reverse?: boolean }>`
+  position: absolute;
+  font-size: 450px;
+  font-weight: 700;
+  color: rgba(168, 197, 160, 0.15);
+  z-index: 0;
+  top: -2rem;
+  left: ${({ reverse }) => reverse ? '-5rem' : 'auto'};
+  right: ${({ reverse }) => reverse ? 'auto' : '1rem'};
+  user-select: none;
+  pointer-events: none;
+
+  @media (max-width: 768px) {
+    font-size: 16rem;
+    top: -1rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+`;
+
+const ServiceImage = styled.div<{ backgroundImage: string }>`
+  width: 370px;
+  height: 475px;
+  background-image: url('${({ backgroundImage }) => backgroundImage}');
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
-  border-radius: 4px;
   position: relative;
   z-index: 1;
 
   @media (max-width: 768px) {
-    width: 250px;
-    height: 180px;
+    width: 100%;
+    max-width: 350px;
+    height: 280px;
+    order: -1; /* Ensures image appears first on mobile */
   }
 `;
 
-const ServiceContent = styled.div`
-  flex: 1;
-  max-width: 300px;
+const ServiceContent = styled.div<{ reverse?: boolean }>`
+  width: 391px;
   position: relative;
   z-index: 1;
+  padding: ${({ reverse }) => reverse ? '8rem 0 0' : '8rem 0 0 4rem'};
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
 `;
 
 const ServiceCategory = styled.div`
-  font-size: 0.8rem;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #666;
+  color: #6D8A83;
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 700;
 `;
 
 const ServiceTitle = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: #2c5530;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: #0B3B3C;
   line-height: 1.3;
-  font-family: 'TT Norms', Georgia, serif;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ServiceDescription = styled.p`
-  line-height: 1.6;
-  color: #666;
-  font-size: 0.95rem;
+  font-size: 18px;
+  font-weight: 400;
+  color: #0B3B3C;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
-
-export default function ServicesSection() {
-    return (
-        <ServicesContainer>
-            <ContentWrapper>
-                <SectionTitle>What we can help with</SectionTitle>
-
-                <ServicesGrid>
-
-                    <ServiceCard>
-                        <BackgroundNumber number="01">01</BackgroundNumber>
-                        <ServiceImage imageType="hairloss" />
-                        <ServiceContent>
-                            <ServiceCategory>Hair Loss</ServiceCategory>
-                            <ServiceTitle>Hair loss needn't be irreversible. We can help!</ServiceTitle>
-                            <ServiceDescription>
-                                We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.
-                            </ServiceDescription>
-                        </ServiceContent>
-                    </ServiceCard>
-
-                    <ServiceCard reverse>
-                        <BackgroundNumber number="02">02</BackgroundNumber>
-                        <ServiceImage imageType="ed" />
-                        <ServiceContent>
-                            <ServiceCategory>Erectile Dysfunction</ServiceCategory>
-                            <ServiceTitle>Erections can be a tricky thing. But no need to feel down!</ServiceTitle>
-                            <ServiceDescription>
-                                We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.
-                            </ServiceDescription>
-                        </ServiceContent>
-                    </ServiceCard>
-                </ServicesGrid>
-            </ContentWrapper>
-        </ServicesContainer>
-    );
-}
