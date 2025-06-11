@@ -34,10 +34,10 @@ src/
 │   └── colors.ts                 # Design system color palette
 ├── data/
 │   └── services.ts               # Static services data
-└── pages/
+└── app/
     ├── api/
     │   └── quiz.ts               # Next.js API route for quiz data
-    └── index.tsx                 # Main landing page
+    └── page.tsx                 # Main landing page
 ```
 
 ## My Approach
@@ -138,7 +138,7 @@ With more time, I would add:
 
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/MCKataoka/manual-landing-page.git
 
 # Install dependencies
 npm install
