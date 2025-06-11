@@ -6,7 +6,9 @@ import { colors } from '@/constants/colors';
 export default function Header() {
     return (
         <HeaderContainer>
-            <Logo src="/images/manual-logo.png" alt="Manual" />
+            <LogoLink href="https://www.manual.co/" target="_blank" rel="noopener noreferrer">
+                <Logo src="/images/manual-logo.png" alt="Manual" />
+            </LogoLink>
         </HeaderContainer>
     );
 }
@@ -25,6 +27,10 @@ const HeaderContainer = styled.header`
     display: flex;
     justify-content: center;
   }
+`;
+
+const LogoLink = styled.a`
+  display: inline-block;
 `;
 
 const Logo = styled.img`
