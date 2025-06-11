@@ -1,10 +1,8 @@
-// src/__tests__/components/HeroSection.test.tsx
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-// Mock dependencies
 jest.mock('../../constants/colors', () => ({
     colors: {
         primary: { green: '#2c5530' },
@@ -90,7 +88,22 @@ describe('HeroSection Component', () => {
     });
 
     it('dispatches openQuiz when button is clicked', async () => {
-        const store = createMockStore();
+        const store = configureStore({
+            reducer: {
+                quiz: (state = {
+                    isQuizOpen: false,
+                    quizData: { questions: [] },  // Add this line
+                    error: null,
+                    isLoading: false
+                }, action) => {
+                    if (action.type === 'quiz/openQuiz') {
+                        return { ...state, isQuizOpen: true };
+                    }
+                    return state;
+                }
+            }
+        });
+
         const dispatchSpy = jest.spyOn(store, 'dispatch');
         const user = userEvent.setup();
 
@@ -150,4 +163,76 @@ describe('HeroSection Component', () => {
         expect(screen.getByText(/holistic approach/)).toBeInTheDocument();
         expect(screen.getByRole('button')).toBeInTheDocument();
     });
+
+    it('displays error message when API call fails', () => {
+        const store = configureStore({
+            reducer: {
+                quiz: (state = {
+                    isQuizOpen: false,
+                    error: 'Failed to fetch quiz data',
+                    isLoading: false,
+                    quizData: null
+                }, action) => state
+            }
+        });
+
+        render(
+            <Provider store={store}>
+                <HeroSection />
+            </Provider>
+        );
+
+        expect(screen.getByText('Unable to load quiz questions. Please try again.')).toBeInTheDocument();
+    });
+
+    it('shows "Try Again" button when there is an error', () => {
+        const store = configureStore({
+            reducer: {
+                quiz: (state = {
+                    isQuizOpen: false,
+                    error: 'API error',
+                    isLoading: false,
+                    quizData: null
+                }, action) => state
+            }
+        });
+
+        render(
+            <Provider store={store}>
+                <HeroSection />
+            </Provider>
+        );
+
+        const button = screen.getByRole('button', { name: /try again/i });
+        expect(button).toBeInTheDocument();
+        expect(button).not.toBeDisabled();
+    });
+
+    it('retries API call when "Try Again" button is clicked', async () => {
+        const store = configureStore({
+            reducer: {
+                quiz: (state = {
+                    isQuizOpen: false,
+                    error: 'Network error',
+                    isLoading: false,
+                    quizData: null
+                }, action) => state
+            }
+        });
+
+        const dispatchSpy = jest.spyOn(store, 'dispatch');
+        const user = userEvent.setup();
+
+        render(
+            <Provider store={store}>
+                <HeroSection />
+            </Provider>
+        );
+
+        const button = screen.getByRole('button', { name: /try again/i });
+        await user.click(button);
+
+        expect(dispatchSpy).toHaveBeenCalledWith(fetchQuizData());
+    });
+
 });

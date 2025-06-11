@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { openQuiz } from '@/store/quiz/slice';
 import { useEffect } from 'react';
 import Button from "@/components/ui/Button";
@@ -10,13 +10,19 @@ import { colors } from '@/constants/colors';
 
 export default function HeroSection() {
     const dispatch = useAppDispatch();
+    const { error, isLoading, quizData } = useAppSelector((state) => state.quiz);
 
     useEffect(() => {
         dispatch(fetchQuizData());
     }, [dispatch]);
 
     const handleTakeQuiz = () => {
-        dispatch(openQuiz());
+        if (error || !quizData) {
+            // If there's an error or no data, retry fetching
+            dispatch(fetchQuizData());
+        } else {
+            dispatch(openQuiz());
+        }
     };
 
     return (
@@ -30,8 +36,20 @@ export default function HeroSection() {
                     <Subtext>
                         We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.
                     </Subtext>
-                    <Button variant="primary" size="large" onClick={handleTakeQuiz}>
-                        Take the quiz
+
+                    {error && (
+                        <ErrorMessage>
+                            Unable to load quiz questions. Please try again.
+                        </ErrorMessage>
+                    )}
+
+                    <Button
+                        variant="primary"
+                        size="large"
+                        onClick={handleTakeQuiz}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Loading...' : error ? 'Try Again' : 'Take the quiz'}
                     </Button>
                 </TextContent>
             </ContentGrid>
@@ -95,5 +113,21 @@ const Subtext = styled.p`
 
   @media (max-width: 768px) {
     text-align: center;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 0.9rem;
+  color: ${colors.primary.red};
+  background: ${colors.background.main};
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  max-width: 400px;
+  border-left: 3px solid ${colors.primary.red};
+
+  @media (max-width: 768px) {
+    text-align: center;
+    margin: 0 auto 1rem;
   }
 `;
