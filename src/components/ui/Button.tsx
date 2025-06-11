@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { colors } from '@/constants/colors';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'success' | 'outline' | 'ghost';
@@ -86,74 +87,74 @@ const StyledButton = styled.button<ButtonProps>`
     switch (variant) {
       case 'primary':
         return `
-          background: #7E0707;
-          color: white;
-          border: 2px solid #7E0707;
+          background: ${colors.primary.red};
+          color: ${colors.text.white};
+          border: 2px solid ${colors.primary.red};
   
           &:hover:not(:disabled) {
-            background: #8b1f30;
-            border-color: #8b1f30;
+            background: ${colors.hover.red};
+            border-color: ${colors.hover.red};
             transform: translateY(-1px);
           }
         `;
       case 'secondary':
         return `
-          background: #2c5530;
-          color: white;
-          border: 2px solid #2c5530;
+          background: ${colors.primary.green};
+          color: ${colors.text.white};
+          border: 2px solid ${colors.primary.green};
           
           &:hover:not(:disabled) {
-            background: #1a3319;
-            border-color: #1a3319;
+            background: ${colors.hover.green};
+            border-color: ${colors.hover.green};
             transform: translateY(-1px);
           }
         `;
       case 'success':
         return `
-          background: #0B3B3C;
-          color: white;
-          border: 2px solid #0B3B3C;
+          background: ${colors.primary.teal};
+          color: ${colors.text.white};
+          border: 2px solid ${colors.primary.teal};
           border-radius: 4px;
           
           &:hover:not(:disabled) {
-            background: #083031;
-            border-color: #083031;
+            background: ${colors.hover.teal};
+            border-color: ${colors.hover.teal};
             transform: translateY(-1px);
           }
         `;
       case 'outline':
         return `
-          background: transparent;
-          color: #2c5530;
-          border: 2px solid #0B3B3C;
+          background: ${colors.transparent};
+          color: ${colors.primary.green};
+          border: 2px solid ${colors.primary.teal};
           border-radius: 4px;
           
           &:hover:not(:disabled) {
-            background: #0B3B3C;
-            color: white;
+            background: ${colors.primary.teal};
+            color: ${colors.text.white};
             transform: translateY(-1px);
           }
         `;
       case 'ghost':
         return `
-          background: transparent;
-          color: #2c5530;
-          border: 2px solid transparent;
+          background: ${colors.transparent};
+          color: ${colors.primary.green};
+          border: 2px solid ${colors.transparent};
           
           &:hover:not(:disabled) {
-            background: rgba(44, 85, 48, 0.1);
+            background: ${colors.decorative.ghostHover};
             transform: translateY(-1px);
           }
         `;
       default:
         return `
-          background: #7E0707;
-          color: white;
-          border: 2px solid #7E0707;
+          background: ${colors.primary.red};
+          color: ${colors.text.white};
+          border: 2px solid ${colors.primary.red};
           
           &:hover:not(:disabled) {
-            background: #8b1f30;
-            border-color: #8b1f30;
+            background: ${colors.hover.red};
+            border-color: ${colors.hover.red};
             transform: translateY(-1px);
           }
         `;

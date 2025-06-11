@@ -2,10 +2,11 @@
 
 import styled from '@emotion/styled';
 import { useAppDispatch } from '@/hooks/redux';
-import { openQuiz, fetchQuizData } from '@/store/slices/quizSlice';
+import { openQuiz } from '@/store/quiz/slice';
 import { useEffect } from 'react';
 import Button from "@/components/ui/Button";
-
+import { fetchQuizData } from "@/store/quiz/actions";
+import { colors } from '@/constants/colors';
 
 export default function HeroSection() {
     const dispatch = useAppDispatch();
@@ -57,7 +58,7 @@ const TextContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #2c5530;
+  color: ${colors.primary.green};
   background-image: url('/images/hero-man-laughing.jpg');
   background-size: cover;
   background-position: center;
@@ -66,7 +67,7 @@ const TextContent = styled.div`
   @media (max-width: 768px) {
     font-size: 3rem;
     background-image: none;
-    background-color: #a1b89e;
+    background-color: ${colors.background.mobileHero};
     align-items: center;
     padding: 0 3rem;
   }
@@ -77,8 +78,7 @@ const Heading = styled.h1`
   font-weight: 500;
   line-height: 0.9;
   margin-bottom: 1.5rem;
-  
-  color: #0B3B3C;
+  color: ${colors.text.primary};
 
   @media (max-width: 768px) {
     font-size: 3rem;
@@ -91,7 +91,8 @@ const Subtext = styled.p`
   line-height: 1.6;
   margin-bottom: 2rem;
   max-width: 400px;
-  color: #0B3B3C;
+  color: ${colors.text.primary};
+
   @media (max-width: 768px) {
     text-align: center;
   }

@@ -1,7 +1,8 @@
 'use client';
 
 import styled from '@emotion/styled';
-import {services} from "@/services";
+import {services} from "@/data/services";
+import { colors } from '@/constants/colors';
 
 export default function ServicesSection() {
     return (
@@ -38,7 +39,7 @@ export default function ServicesSection() {
 
 const ServicesContainer = styled.section`
   padding: 6rem 0;
-  background: white;
+  background: ${colors.background.main};
 `;
 
 const ContentWrapper = styled.div`
@@ -52,7 +53,7 @@ const SectionTitle = styled.h2`
   font-weight: 500;
   text-align: center;
   margin-bottom: 5rem;
-  color: #2c5530;
+  color: ${colors.primary.green};
 `;
 
 const ServicesGrid = styled.div`
@@ -96,7 +97,7 @@ const BackgroundNumber = styled.div<{ reverse?: boolean }>`
   position: absolute;
   font-size: 450px;
   font-weight: 700;
-  color: rgba(168, 197, 160, 0.15);
+  color: ${colors.decorative.numbers};
   z-index: 0;
   top: -2rem;
   left: ${({ reverse }) => reverse ? '-5rem' : 'auto'};
@@ -127,7 +128,7 @@ const ServiceImage = styled.div<{ backgroundImage: string }>`
     width: 100%;
     max-width: 350px;
     height: 280px;
-    order: -1; /* Ensures image appears first on mobile */
+    order: -1;
   }
 `;
 
@@ -148,7 +149,7 @@ const ServiceCategory = styled.div`
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #6D8A83;
+  color: ${colors.text.muted};
   margin-bottom: 0.5rem;
   font-weight: 700;
 `;
@@ -157,7 +158,7 @@ const ServiceTitle = styled.h3`
   font-size: 28px;
   font-weight: 400;
   margin-bottom: 2rem;
-  color: #0B3B3C;
+  color: ${colors.text.primary};
   line-height: 1.3;
 
   @media (max-width: 768px) {
@@ -169,7 +170,7 @@ const ServiceTitle = styled.h3`
 const ServiceDescription = styled.p`
   font-size: 18px;
   font-weight: 400;
-  color: #0B3B3C;
+  color: ${colors.text.primary};
 
   @media (max-width: 768px) {
     font-size: 16px;

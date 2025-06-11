@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { colors } from '@/constants/colors';
 
 export default function Footer() {
     return (
@@ -51,7 +52,7 @@ export default function Footer() {
 }
 
 const FooterContainer = styled.footer`
-  background: #E8EFE9;
+  background: ${colors.background.footer};
   padding: 4rem 2rem 2rem;
 `;
 
@@ -85,7 +86,6 @@ const Logo = styled.img`
 
 const FooterColumn = styled.div`
   @media (max-width: 768px) {
-
     margin-bottom: 0;
   }
 `;
@@ -96,38 +96,35 @@ const ColumnTitle = styled.h4`
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 2rem;
-  color: #0B3B3C;
+  color: ${colors.text.primary};
 
   @media (max-width: 768px) {
     padding: 1rem;
     margin-bottom: 0;
-    border-bottom: 1px solid #BDCDC5;
+    border-bottom: 1px solid ${colors.border.medium};
     width: 100%;
   }
 `;
 
 const FooterLink = styled.a`
   display: block;
-  color: #0B3B3C;
+  color: ${colors.text.primary};
   text-decoration: none;
   margin-bottom: 2rem;
   font-size: 16px;
   transition: color 0.2s ease;
 
   &:hover {
-    color: #2c5530;
+    color: ${colors.primary.green};
   }
 
   @media (max-width: 768px) {
     padding: 1rem;
     margin-bottom: 0;
-
     width: 100%;
 
-
-
     &:hover {
-      background: rgba(44, 85, 48, 0.05);
+      background: ${colors.decorative.linkHover};
     }
   }
 `;
@@ -148,6 +145,7 @@ const SocialIconsRow = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
+
   @media (max-width: 768px) {
     padding-left: 1rem;
   }
@@ -156,8 +154,8 @@ const SocialIconsRow = styled.div`
 const SocialIcon = styled.a`
   width: 24px;
   height: 24px;
-  background: transparent;
-  color: #7E0707;
+  background: ${colors.transparent};
+  color: ${colors.primary.red};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +165,7 @@ const SocialIcon = styled.a`
   transition: all 0.2s ease;
 
   &:hover {
-    color: #5a0505;
+    color: ${colors.hover.redLight};
     transform: translateY(-2px);
   }
 
@@ -198,10 +196,11 @@ const TwitterIcon = styled(SocialIcon)`
 const Copyright = styled.div`
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid #BDCDC5;
-  color: #6D8A83;
+  border-top: 1px solid ${colors.border.medium};
+  color: ${colors.text.muted};
   font-size: 16px;
   font-weight: 400;
+
   @media (max-width: 768px) {
     border-top: none;
   }
