@@ -1,5 +1,3 @@
-// src/constants/colors.ts
-
 export const colors = {
     primary: {
         red: '#7E0707',

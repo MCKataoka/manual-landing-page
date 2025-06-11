@@ -158,7 +158,6 @@ describe('HeroSection Component', () => {
             </Provider>
         );
 
-        // Check that all main elements are present
         expect(screen.getByRole('heading')).toBeInTheDocument();
         expect(screen.getByText(/holistic approach/)).toBeInTheDocument();
         expect(screen.getByRole('button')).toBeInTheDocument();

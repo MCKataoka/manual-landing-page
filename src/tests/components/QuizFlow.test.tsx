@@ -44,7 +44,6 @@ const mockQuizData = {
     ]
 };
 
-// Helper function to create store with quiz data
 const createMockStore = (initialState = {}) => {
     const store = configureStore({
         reducer: {
@@ -67,7 +66,6 @@ const createMockStore = (initialState = {}) => {
     return store;
 };
 
-// Helper component to render quiz with store
 const QuizWithProvider = ({ store }: { store: any }) => (
     <Provider store={store}>
         <QuizModal />
@@ -111,7 +109,6 @@ describe('Quiz Flow Integration', () => {
         });
     });
 
-    // Test navigation
     describe('Quiz Navigation', () => {
         it('should disable Previous button on first question', () => {
             const store = createMockStore();
@@ -190,7 +187,6 @@ describe('Quiz Flow Integration', () => {
 
     });
 
-    // Test close functionality
     describe('Quiz Close', () => {
 
         it('should close quiz when close button clicked', async () => {

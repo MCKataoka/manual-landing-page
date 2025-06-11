@@ -177,19 +177,19 @@ const SocialIcon = styled.a`
 
 const FacebookIcon = styled(SocialIcon)`
   &::before {
-    content: "\\f39e"; /* Facebook-f unicode */
+    content: "\\f39e";
   }
 `;
 
 const GoogleIcon = styled(SocialIcon)`
   &::before {
-    content: "\\f1a0"; /* Google unicode */
+    content: "\\f1a0"; 
   }
 `;
 
 const TwitterIcon = styled(SocialIcon)`
   &::before {
-    content: "\\f099"; /* Twitter unicode */
+    content: "\\f099"; 
   }
 `;
 

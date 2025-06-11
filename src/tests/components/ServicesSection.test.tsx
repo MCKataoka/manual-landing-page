@@ -26,7 +26,6 @@ describe('ServicesSection Component', () => {
         it('renders all services from data', () => {
             render(<ServicesSection />);
 
-            // Check that all service titles are rendered (2 services)
             expect(screen.getByText('Hair loss needn\'t be irreversible. We can help!')).toBeInTheDocument();
             expect(screen.getByText('Erections can be a tricky thing. But no need to feel down!')).toBeInTheDocument();
         });
@@ -50,7 +49,6 @@ describe('ServicesSection Component', () => {
         it('renders each service with all required elements', () => {
             render(<ServicesSection />);
 
-            // Each service should have category, title, description
             const services = [
                 {
                     category: 'Hair Loss',

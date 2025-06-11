@@ -55,7 +55,6 @@ describe('Quiz Redux Slice', () => {
         });
     });
 
-    // Test initial state
     it('should have correct initial state', () => {
         const state = store.getState().quiz;
         expect(state).toEqual({
@@ -70,7 +69,6 @@ describe('Quiz Redux Slice', () => {
         });
     });
 
-    // Test openQuiz action
     describe('openQuiz', () => {
         it('should open the quiz', () => {
             store.dispatch(openQuiz());
@@ -79,7 +77,6 @@ describe('Quiz Redux Slice', () => {
         });
     });
 
-    // Test closeQuiz action
     describe('closeQuiz', () => {
         it('should close the quiz and reset state', () => {
             // First open quiz and add some state
@@ -98,7 +95,6 @@ describe('Quiz Redux Slice', () => {
         });
     });
 
-    // Test selectAnswer action
     describe('selectAnswer', () => {
         beforeEach(() => {
             // Set up quiz with mock data
@@ -130,7 +126,6 @@ describe('Quiz Redux Slice', () => {
         });
     });
 
-    // Test nextQuestion action
     describe('nextQuestion', () => {
         beforeEach(() => {
             store.dispatch({ type: 'quiz/fetchQuizData/fulfilled', payload: mockQuizData });
@@ -143,7 +138,6 @@ describe('Quiz Redux Slice', () => {
         });
 
         it('should complete quiz on last question', () => {
-            // Go to last question
             store.dispatch(nextQuestion());
             expect(store.getState().quiz.currentQuestionIndex).toBe(1);
 
@@ -190,11 +184,9 @@ describe('Quiz Redux Slice', () => {
         });
 
         it('should complete quiz without rejection', () => {
-            // Answer first question (non-rejection)
             store.dispatch(selectAnswer({ display: "Temples", value: "Temples", isRejection: false }));
             store.dispatch(nextQuestion());
 
-            // Answer second question (non-rejection)
             store.dispatch(selectAnswer({ display: "No", value: false, isRejection: false }));
             store.dispatch(nextQuestion());
 
