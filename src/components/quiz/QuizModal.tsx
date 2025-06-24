@@ -18,7 +18,12 @@ export default function QuizModal() {
     };
 
     return (
-        <ModalOverlay isOpen={isQuizOpen}>
+        <ModalOverlay isOpen={isQuizOpen}   
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quiz-title"
+        aria-describedby="quiz-description"
+        >
             <QuizHeader>
                 <div>{isComplete ? 'Quiz Complete' : `Question ${quizData.questions.length > 0 ? '...' : ''}`}</div>
                 <CloseButton onClick={handleClose}>✕</CloseButton>

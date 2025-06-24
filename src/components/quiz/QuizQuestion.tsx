@@ -6,11 +6,8 @@ import Button from "@/components/ui/Button";
 import {nextQuestion, previousQuestion, selectAnswer} from "@/store/quiz/slice";
 import { colors } from '@/constants/colors';
 
-interface QuizQuestionProps {
-    onClose: () => void;
-}
 
-export default function QuizQuestion({ onClose }: QuizQuestionProps) {
+export default function QuizQuestion() {
     const dispatch = useAppDispatch();
     const {
         quizData,
@@ -45,7 +42,13 @@ export default function QuizQuestion({ onClose }: QuizQuestionProps) {
             <ProgressInfo>
                 Question {currentQuestionIndex + 1} of {quizData.questions.length}
             </ProgressInfo>
-            <ProgressBar>
+            <ProgressBar 
+              role="progressbar"
+              aria-label="Quiz progress"
+              aria-valuenow={currentQuestionIndex + 1}
+              aria-valuemin={1}
+              aria-valuemax={quizData.questions.length}
+            >
                 <ProgressFill progress={progress} />
             </ProgressBar>
 
